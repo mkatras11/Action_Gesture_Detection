@@ -1,6 +1,6 @@
-# Gesture Recognition Using Hand Pose Estimation
+## Gesture Recognition Using Hand Pose Estimation
 
-## Introduction
+### Introduction
 Estimate hand pose using MediaPipe (Python version).<br> Recognize hand signs and finger gestures with a MLP using the detected key points.
 <br> ❗ _️**This repository is based on this [original repo](https://github.com/Lugixion/hand-gesture-recognition-mediapipe).**_ ❗<br> 
 
@@ -11,21 +11,17 @@ This repository contains the following contents.
 * Hand gesture recognition notebook for training
 * Finger gesture recognition notebook for training
 
-## Requirements
-To install all the requirements run:
-'$ pip install -r requirements.txt'
-
-## webcam_demo_gesture_det.py
+### webcam_demo_gesture_det.py
 This is a sample demo to make real-time inference through a webcam.<br>
 You can also collect training data (key point coordinates) for hand and finger gesture recognition.
 
-## keypoint_classification.ipynb
+### keypoint_classification.ipynb
 This is a model training script for hand gesture recognition.
 
-## point_history_classification.ipynb
+### point_history_classification.ipynb
 This is a model training script for finger gesture recognition.
 
-## model/keypoint_classifier
+### model/keypoint_classifier
 This directory stores files related to hand gesture recognition.<br>
 The following files are stored.
 * Training data(keypoint.csv)
@@ -33,7 +29,7 @@ The following files are stored.
 * Label data(keypoint_classifier_label.csv)
 * Inference module(keypoint_classifier.py)
 
-## model/point_history_classifier
+### model/point_history_classifier
 This directory stores files related to finger gesture recognition.<br>
 The following files are stored.
 * Training data(point_history.csv)
@@ -41,66 +37,47 @@ The following files are stored.
 * Label data(point_history_classifier_label.csv)
 * Inference module(point_history_classifier.py)
 
-## utils/cvfpscalc.py
+### utils/cvfpscalc.py
 This is a module for FPS measurement.
 
-# Training
+### Training
 There is also a feature to add and change training data and retrain the models for hand and finger gesture recognition.
 
-## Hand gesture recognition training
-### 1.Learning data collection
+### Hand gesture recognition training
+#### 1.Learning data collection
 Press "k" to enter the mode to save key points（displayed as 「MODE:Logging Key Point」）<br>
 If you press "0" to "9", the key points will be added to "model/keypoint_classifier/keypoint.csv" in the following structure:<br>
 1st column: Pressed number (used as class ID), 2nd and subsequent columns: Key point coordinates<br>
 In the initial state, three types of gestures are included: Stop (class ID: 0), Go (class ID: 1), and Point (class ID: 2).<br>
 If necessary, add or delete the existing data and labels of the csv files to prepare new training data.<br>
 
-### 2.Model training
+#### 2.Model training
 Open "[keypoint_classification.ipynb](keypoint_classification.ipynb)" in Jupyter Notebook and execute from top to bottom.<br>
 To change the number of training data classes, change the value of "NUM_CLASSES = 3" <br>and modify the label of "model/keypoint_classifier/keypoint_classifier_label.csv".<br><br>
 
-## Finger gesture recognition training
-### 1.Learning data collection
+### Finger gesture recognition training
+#### 1.Learning data collection
 Press "h" to enter the mode to save the history of fingertip coordinates (displayed as "MODE:Logging Point History").<br>
 If you press "0" to "9", the key points will be added to "model/point_history_classifier/point_history.csv" in the following structure:<br>
 1st column: Pressed number (used as class ID), 2nd and subsequent columns: Coordinate history<br>
 In the initial state, 3 types of learning data are included: None (class ID: 0), Clockwise (class ID: 1), Counterclockwise (class ID: 2).<br>
 If necessary, add or delete the existing data and labels of the csv files to prepare new training data.<br>
 
-### 2.Model training
+#### 2.Model training
 Open "[point_history_classification.ipynb](point_history_classification.ipynb)" in Jupyter Notebook and execute from top to bottom.<br>
 To change the number of training data classes, change the value of "NUM_CLASSES = 3" and <br>modify the label of "model/point_history_classifier/point_history_classifier_label.csv". <br><br>
 The user can choose between a simple MLP and a LSTM model for finger gesture recognition.<br>
 
-# References
-* [MediaPipe](https://mediapipe.dev/)
-* [hand-gesture-recognition-mediapipe](https://github.com/Lugixion/hand-gesture-recognition-mediapipe)
 
-# Spatiotemporal Action Detection
+## Spatiotemporal Action Detection
 
-## Introduction
+### Introduction
 Detect human actions both in spatial and temporal dimensions using MMAction2.
 
 MMAction2 is an open-source toolbox for video understanding based on PyTorch.
 It is a part of the [OpenMMLab](https://openmmlab.com/) project.
 
-## Installation
-
-This project depends on [PyTorch](https://pytorch.org/), [MMCV](https://github.com/open-mmlab/mmcv), and [MMDetection](https://github.com/open-mmlab/mmdetection).
-Below are some quick steps for installation:
-
-```shell
-conda create -n st_action_det python=3.8 
-conda activate st_action_det
-pip install torch==1.9.0+cu111 torchvision==0.10.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html
-pip3 install openmim
-mim install mmcv-full
-mim install mmdet 
-git clone https://github.com/mkatras11/Action_Detection_mmaction2.git
-pip install -r requirements.txt
-```
-
-## Methods and Datasets
+### Methods and Datasets
 
 <table style="margin-left:auto;margin-right:auto;font-size:1.3vw;padding:3px 5px;text-align:center;vertical-align:center;">
   <tr>
@@ -123,7 +100,7 @@ pip install -r requirements.txt
 </table>
 
 
-## SpatioTemporal Action Detection Webcam Demo
+### SpatioTemporal Action Detection Webcam Demo
 
 A demo script to implement real-time spatio-temporal action detection from a web camera is provided in demo\webcam_demo_spatiotemporal_det.py.
 
@@ -190,5 +167,6 @@ python demo/webcam_demo_spatiotemporal_det.py \
 
 # References
 * [MMAction2](https://github.com/open-mmlab/mmaction2)
-
+* [MediaPipe](https://mediapipe.dev/)
+* [hand-gesture-recognition-mediapipe](https://github.com/Lugixion/hand-gesture-recognition-mediapipe)
 
