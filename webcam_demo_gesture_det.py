@@ -540,18 +540,21 @@ def get_machine_state(hand_sign_text_history):
     global count
     if hand_sign_text_history[1] == "Point" or hand_sign_text_history[1] == "Go":
         machine_state = "Follow direction/ Start"
+        count = 0
     elif (hand_sign_text_history == ["Stop", "None"] or hand_sign_text_history == ["Stop", "Stop"] or hand_sign_text_history[1] == "Stop" ):
         machine_state = "Wait for command"
         count+=1
         if count >= 40 and count <= 60:
             machine_state = "Detect"
         elif count >= 60:
-            machine_state = "Detect"
             count = 0
+            pass
     elif hand_sign_text_history == ["None", "None"]:
         machine_state = "Adjust speed"
+        count = 0
     else:
         machine_state = "Detect"
+        count = 0
     
     
     return machine_state
