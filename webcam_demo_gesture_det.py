@@ -16,6 +16,8 @@ from model import PointHistoryClassifier
 from tkinter import * 
 from tkinter.ttk import *
 
+hand_sign_text_history = [None, None]
+count = 0
 def get_args():
     parser = argparse.ArgumentParser()
 
@@ -172,6 +174,13 @@ def main():
                 )
         else:
             point_history.append([0, 0])
+            image = cv.cvtColor(image, cv.COLOR_RGB2BGR)
+            info_text = "Machine State: " + "Detect"
+            cv.putText(image, info_text, (10, 60),
+            cv.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 0), 10, cv.LINE_AA)
+            cv.putText(image, info_text, (10, 60),
+            cv.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 255), 2, cv.LINE_AA)
+            debug_image = image
 
         debug_image = draw_point_history(debug_image, point_history)
         debug_image = draw_info(debug_image, fps, mode, number)
@@ -499,19 +508,54 @@ def draw_info_text(image, brect, handedness, hand_sign_text,
     info_text = handedness.classification[0].label[0:]
     if hand_sign_text != "":
         info_text = "Hand Gesture:" + hand_sign_text + '('+ info_text + ')' 
-    cv.putText(image, info_text, (10, 60),
+    cv.putText(image, info_text, (10, 120),
                cv.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 0), 10, cv.LINE_AA)
-    cv.putText(image, info_text, (10, 60),
+    cv.putText(image, info_text, (10, 120),
                cv.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 255), 2, cv.LINE_AA)
     if hand_sign_text == "Point":
         if finger_gesture_text != "":
-            cv.putText(image, "Finger Gesture:" + finger_gesture_text, (10, 130),
+            cv.putText(image, "Finger Gesture:" + finger_gesture_text, (10, 180),
                     cv.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 0), 10, cv.LINE_AA)
-            cv.putText(image, "Finger Gesture:" + finger_gesture_text, (10, 130),
+            cv.putText(image, "Finger Gesture:" + finger_gesture_text, (10, 180),
                     cv.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 255), 2,
                     cv.LINE_AA)
+
+    # Keep track of the 2 most recent hand sign texts
+    global hand_sign_text_history
+    hand_sign_text_history.append(hand_sign_text)
+    if len(hand_sign_text_history) > 2:
+        hand_sign_text_history.pop(0)
+    machine_state = get_machine_state(hand_sign_text_history)
+
+    info_text = "Machine State: " + machine_state
+    cv.putText(image, info_text, (10, 60),
+    cv.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 0), 10, cv.LINE_AA)
+    cv.putText(image, info_text, (10, 60),
+    cv.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 255), 2, cv.LINE_AA)
+    
     return image
 
+def get_machine_state(hand_sign_text_history):
+
+    global count
+    if hand_sign_text_history[1] == "Point" or hand_sign_text_history[1] == "Go":
+        machine_state = "Follow direction/ Start"
+    elif (hand_sign_text_history == ["Stop", "None"] or hand_sign_text_history == ["Stop", "Stop"] or hand_sign_text_history[1] == "Stop" ):
+        machine_state = "Wait for command"
+        count+=1
+        if count >= 40 and count <= 60:
+            machine_state = "Detect"
+        elif count >= 60:
+            machine_state = "Detect"
+            count = 0
+    elif hand_sign_text_history == ["None", "None"]:
+        machine_state = "Adjust speed"
+    else:
+        machine_state = "Detect"
+    
+    
+    return machine_state
+    
 
 def draw_point_history(image, point_history):
     for index, point in enumerate(point_history):

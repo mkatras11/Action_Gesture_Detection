@@ -97,7 +97,7 @@ def parse_args():
         '--device', type=str, default='cuda:0', help='CPU/CUDA device option')
     parser.add_argument(
         '--output-fps',
-        default= 60,
+        default= 25,
         type=int,
         help='the fps of demo video output')
     parser.add_argument(
@@ -122,12 +122,12 @@ def parse_args():
         help='Image width for human detector and draw frames.')
     parser.add_argument(
         '--predict-stepsize',
-        default=60,
+        default=30,
         type=int,
         help='give out a prediction per n frames')
     parser.add_argument(
         '--clip-vis-length',
-        default=60,
+        default=30,
         type=int,
         help='Number of draw frames per clip.')
     parser.add_argument(
@@ -142,11 +142,11 @@ def parse_args():
     parser.add_argument("--min_detection_confidence",
                         help='min_detection_confidence',
                         type=float,
-                        default=0.7)
+                        default=0.1)
     parser.add_argument("--min_tracking_confidence",
                         help='min_tracking_confidence',
                         type=int,
-                        default=0.5)
+                        default=0.1)
     args = parser.parse_args()
     return args
 
