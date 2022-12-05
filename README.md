@@ -1,8 +1,32 @@
-## Gesture Recognition Using Hand Pose Estimation
+# Action and Gesture Detection 
+
+## Introduction
+Recognize and detect static, dynamic hand gestures, and human actions thourgh a web camera. The user can use the content to perform gesture detection, spatiotemporal action detection or a combination of both. 
+
+## Installation
+
+```shell
+conda create -n act_gest_det python=3.8 
+conda activate act_gest_det
+pip install torch==1.9.0+cu111 torchvision==0.10.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html
+pip3 install openmim
+mim install mmcv-full
+mim install mmdet 
+git clone https://github.com/mkatras11/Action_Detection_mmaction2.git
+pip install -r requirements.txt
+```
+
+## webcam_demo_comb.py
+This is a demo script to perform inference with both methods combined through a web camera.
+
+** For information regarding parameters, configurations and model training, please check the information for the separate modules below. **
+
+
+## Gesture Detection Using Hand Pose Estimation
 
 ### Introduction
 Estimate hand pose using MediaPipe (Python version).<br> Recognize hand signs and finger gestures with a MLP using the detected key points.
-<br> ❗ _️**This repository is based on this [original repo](https://github.com/Lugixion/hand-gesture-recognition-mediapipe).**_ ❗<br> 
+This part of the repository is based on this [original repo](https://github.com/Lugixion/hand-gesture-recognition-mediapipe).
 
 This repository contains the following contents.
 * Webcam demo for gesture recognition
@@ -39,9 +63,6 @@ The following files are stored.
 
 ### utils/cvfpscalc.py
 This is a module for FPS measurement.
-
-### Training
-There is also a feature to add and change training data and retrain the models for hand and finger gesture recognition.
 
 ### Hand gesture recognition training
 #### 1.Learning data collection
@@ -84,10 +105,10 @@ It is a part of the [OpenMMLab](https://openmmlab.com/) project.
     <td colspan="5" style="font-weight:bold;">Supported Methods</td>
   </tr>
   <tr>
-    <td><a href="https://github.com/mkatras11/Action_Detection_mmaction2/tree/main/configs/detection/acrn/README.md">ACRN</a> (ECCV'2018)</td>
-    <td><a href="https://github.com/mkatras11/Action_Detection_mmaction2/tree/main/configs/detection/ava/README.md">SlowOnly+Fast R-CNN</a> (ICCV'2019)</td>
-    <td><a href="https://github.com/mkatras11/Action_Detection_mmaction2/tree/main/configs/detection/ava/README.md">SlowFast+Fast R-CNN</a> (ICCV'2019)</td>
-    <td><a href="https://github.com/mkatras11/Action_Detection_mmaction2/tree/main/configs/detection/lfb/README.md">LFB</a> (CVPR'2019)</td>
+    <td><a href="https://github.com/mkatras11/Action_Gesture_Detection/tree/main/configs/detection/acrn">ACRN</a> (ECCV'2018)</td>
+    <td><a href="https://github.com/mkatras11/Action_Gesture_Detection/tree/main/configs/detection/ava/README.md">SlowOnly+Fast R-CNN</a> (ICCV'2019)</td>
+    <td><a href="https://github.com/mkatras11/Action_Gesture_Detection/tree/main/configs/detection/ava/README.md">SlowFast+Fast R-CNN</a> (ICCV'2019)</td>
+    <td><a href="https://github.com/mkatras11/Action_Gesture_Detection/tree/main/configs/detection/lfb/README.md">LFB</a> (CVPR'2019)</td>
     <td></td>
   </tr>
   <tr>
